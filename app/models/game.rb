@@ -16,7 +16,7 @@ class Game
 
   def join(player)
     if @status != 'playing'
-      if @players.collect { |e| e['id'] == player['id'] }.blank?
+      if @players.select { |e| e['id'] == player['id'] }.blank?
         @players.push player
         @status = 'joined'
       end
@@ -24,7 +24,7 @@ class Game
   end
 
   def ready(player_id)
-    if @status == 'joined'
+    if @status != 'playing'
       @status = 'ready'
       @players.map { |e| e['ready'] = true if e['id'] == player_id }
       start if @players.map { |e| e['ready'] }.reduce(:&)
@@ -45,6 +45,12 @@ class Game
       @number = number
       @current_player_index = (@current_player_index+1) % @players.size 
       @current_player_id = @players[@current_player_index]['id']
+    end
+  end
+
+  def end
+    if @status == 'playing'
+      @status = 'ended'
     end
   end
 end

@@ -10,10 +10,13 @@ $(document).on('turbolinks:load', function() {
 
   App.updateState = function (game) {
     App.game = game
-    console.log(App.player['id'])
-    console.log(App.game)
     if (App.game['status'] == 'playing') {
       App.move(App.game.number)
+      if (App.player['id'] == App.game.current_player_id) {
+        $('.your-turn').show()
+      } else {
+        $('.your-turn').hide()
+      }
     }
   }
 
