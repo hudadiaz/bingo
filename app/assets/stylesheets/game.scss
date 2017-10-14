@@ -1,0 +1,58 @@
+// Place all the styles related to the game controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.game-board {
+  background: rgba(0,0,0,0.5);
+  padding: 12px;
+  padding-bottom: 8px;
+  border-radius: 6px;
+
+  .row {
+    margin-bottom: 4px;
+  }
+
+  .cell {
+    background: rgba(255, 255, 255, .4);
+    width: 100px;
+    height: 100px;
+    margin: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 60px;
+    vertical-align: middle;
+    align-items: center;
+  }
+
+  .cell.active {
+    background: rgba(255, 255, 255, .2);
+  }
+
+  .cell.marked {
+    background: none;
+    cursor: default;
+  }
+}
+
+.number-queue {
+  text-align: left;
+  overflow: hidden;
+  max-height: 78px;
+  width: 570px;
+
+  .cell {
+    display: inline-flex;
+    border: 3px solid white;
+    margin-right: 10px;
+    width: 72px;
+    height: 72px;
+    font-size: 36px;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+  }
+}
