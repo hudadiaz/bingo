@@ -14,8 +14,8 @@ MakeGameChannel = function(app, roomId) {
     received: function(data) {
       return app.updateState(data['game']);
     },
-    play: function(data, roomId) {
-      return this.perform('play', {
+    move: function(data, roomId) {
+      return this.perform('move', {
         data: data,
         room: roomId
       });
@@ -25,16 +25,28 @@ MakeGameChannel = function(app, roomId) {
         player_id: player_id,
         room: roomId
       });
+    },
+    update_player: function(player, roomId) {
+      var playerCopy = JSON.parse(JSON.stringify(player));
+      delete playerCopy.board.arrangement
+      return this.perform('update_player', {
+        player: playerCopy,
+        room: roomId
+      });
     }
-  });
-
-  $(document).on('played', function(e, data) {
-    self.room.play(data, roomId);
   });
 
   $(document).on('playerReady', function() {
     self.room.ready(app.player.id, roomId);
   });
 
-  return self;
+  $(document).on('moved', function(e, data) {
+    self.room.move(data, roomId);
+  });
+
+  $(document).on('marked', function(e, data) {
+    self.room.update_player(data, roomId);
+  });
+
+  return self.room;
 };

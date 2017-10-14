@@ -1,7 +1,7 @@
 $(document).on('turbolinks:load', function() {
-  this.App || (this.App = {});
- 
-  App.cable = ActionCable.createConsumer();
+  if (App.room) {
+    App.room.unsubscribe()
+  }
   App.room = new MakeGameChannel(App, location.pathname.split('/game/')[1])
   App.game = {}
   App.player = new Player()
@@ -10,7 +10,8 @@ $(document).on('turbolinks:load', function() {
 
   App.updateState = function (game) {
     App.game = game
-    if (App.game['status'] == 'playing') {
+    console.log(App.game)
+    if (App.game['status'] == 'playing' && App.game.number != App.calls[App.calls.length-1]) {
       App.move(App.game.number)
       if (App.player['id'] == App.game.current_player_id) {
         $('.your-turn').show()
@@ -23,9 +24,11 @@ $(document).on('turbolinks:load', function() {
   App.move = function (number) {
     App.calls.push(number)
     App.player.board.mark(number)
+    App.player.board.check_score()
     var cell = $('.game-board > .row > .cell[data-number="' + number + '"]');
     $(cell).addClass('marked')
     $(cell).off('click')
+    $(document).trigger('marked', App.player)
   }
 
   var queue_number = function (number) {
@@ -100,7 +103,7 @@ $(document).on('turbolinks:load', function() {
     $('.game-board > .row > .cell').on('click', function() {
       if (App.game.current_player_id == App.player['id']) {
         var number = $(this).data('number')
-        $(document).trigger('played', {
+        $(document).trigger('moved', {
           player_id: App.player.id,
           number: number
         })

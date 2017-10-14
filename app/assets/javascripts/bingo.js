@@ -80,7 +80,7 @@ var Bingo = function() {
     var h = [true, true, true, true, true]
     var v = [true, true, true, true, true]
     var d = [true, true]
-    var score = 0
+    var point = 0
 
     for (var i=0; i<5; i++) {
       for (var j=0; j<5; j++){
@@ -91,16 +91,18 @@ var Bingo = function() {
       d[1] = d[1] && self.markings[4-i][i]
     }
     for (var i=0; i<5; i++) {
-      score += h[i] + v[i]
+      point += h[i] + v[i]
     }
-    score += d[0] + d[1]
+    point += d[0] + d[1]
 
-    return {
-      score: score,
+    self.score = {
+      point: point,
       vertical: v,
       horizontal: h,
       diagonal: d
     }
+
+    return self.score 
   }
 
   self.initialize()

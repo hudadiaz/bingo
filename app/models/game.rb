@@ -48,6 +48,12 @@ class Game
     end
   end
 
+  def update_player(updated_player)
+    if @status == 'playing'
+      @players.map { |e| e.merge!(updated_player) if e['id'] == updated_player['id'] }
+    end
+  end
+
   def end
     if @status == 'playing'
       @status = 'ended'
