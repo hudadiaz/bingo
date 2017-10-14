@@ -1,6 +1,12 @@
 $(document).on('turbolinks:load', function() {
   if (localStorage.playerName) {
     $('#playerName').html(localStorage.playerName)
+  } else {
+    var name = prompt("What's your name?").substr(0, 10)
+    if (name.length) {
+      localStorage.playerName = name
+      $('#playerName').html(localStorage.playerName)
+    }
   }
 
   $('#playerName').on('keypress', function(e) {
