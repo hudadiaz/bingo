@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   get 'game/find', to: 'game#find', as: :find_game
   get 'game/:id', to: 'game#show', as: :game
 
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

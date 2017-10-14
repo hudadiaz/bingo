@@ -90,6 +90,8 @@ $(document).on('turbolinks:load', function() {
   })
 
   $('#readyBtn').on('click', function() {
+    if (App.numbers.length) return false;
+    
     $(document).trigger('playerReady')
     $('#readyBtn, #randomBtn').remove()
     $('.game-board > .row > .cell').off('click')

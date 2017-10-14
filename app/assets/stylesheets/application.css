@@ -51,6 +51,11 @@ body {
   margin-top: 0;
 }
 
+.inline-input {
+  border-bottom: 2px solid;
+  outline: none;
+}
+
 .btn {
   padding: 20px;
   border: 3px white solid;
