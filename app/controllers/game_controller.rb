@@ -1,5 +1,6 @@
 class GameController < ApplicationController
   def show
+    redirect_to root_path unless Game.find(params[:id])
   end
   
   def new
